@@ -1,0 +1,17 @@
+<?php
+
+$isBasri = $argv[0] == 'basri';
+
+if ($argv[0] == 'basri' && $argv[1] == '--serve') {
+    system('php -S localhost:8001 -t public/');    
+}
+if ($isBasri && str_contains($argv[1], ':')) {
+    $explodeMake = explode(':', $argv[1]);
+    if ($explodeMake[0] == 'make' && $explodeMake[1] == 'controller') {
+        $className = $argv[2] . "Controller";
+        $folder = fopen("../controllers/".$className ,'x');
+        fwrite($folder, "<?php\nclass " . $className . " extends Controller\n{\n    //\n}");
+        fclose($folder);
+    }
+}
+
